@@ -1,0 +1,102 @@
+{
+  "datos_generales": {
+    "universidad": "Universidad Politécnica de Chiapas",
+    "tipo_documento": "REGISTRO",
+    "nombre_proyecto": "PROYECTO FLUTTER",
+    "asignatura": "PROGRAMACIÓN PARA MÓVILES II",
+    "nombre_docente": "MTRO. ALI SANTIAGO LÓPEZ ZUNÚN",
+    "periodo_cuatrimestral": "sep - dic 2025",
+    "fecha_revision": "MARZO 2025, Revisión: 0",
+    "instrucciones": "DESARROLLAR UNA APLICACIÓN MÓVIL EN FLUTTER QUE IMPLEMENTE EL PATRÓN ARQUITECTÓNICO MVVM, UTILIZANDO LA LIBRERÍA PROVIDER PARA LA GESTIÓN DEL ESTADO. LA APLICACIÓN DEBE CONTAR CON INTERFACES VISUALMENTE RICAS E INTERACTIVAS, DEMOSTRANDO UN DOMINIO SÓLIDO EN EL USO DE WIDGETS Y BUENAS PRÁCTICAS DE DESARROLLO."
+  },
+  "rubrica": {
+    "criterios_evaluacion": [
+      {
+        "indicador": "DOMINIO TÉCNICO EN FLUTTER Y MVVM",
+        "descripcion_puntaje": [
+          {
+            "porcentaje": "0%",
+            "descripcion": "No se aplica MVVM; la lógica está mezclada en la vista o mal estructurada."
+          },
+          {
+            "porcentaje": "20%",
+            "descripcion": "Se aplica parcialmente MVVM; hay separación de capas, pero con inconsistencias o mezclas de responsabilidades."
+          },
+          {
+            "porcentaje": "30%",
+            "descripcion": "La app aplica MVVM correctamente con clara separación de capas. El código es limpio, estructurado y con buenas prácticas."
+          }
+        ]
+      },
+      {
+        "indicador": "USO CORRECTO DE PROVIDER Y SEPARACIÓN DE RESPONSABILIDADES",
+        "descripcion_puntaje": [
+          {
+            "porcentaje": "0%",
+            "descripcion": "No se utiliza Provider, o se usa incorrectamente, con errores graves en la gestión del estado."
+          },
+          {
+            "porcentaje": "10%",
+            "descripcion": "Provider se usa de forma básica, con algunos errores en el manejo del estado o poca separación de responsabilidades."
+          },
+          {
+            "porcentaje": "20%",
+            "descripcion": "Provider se utiliza correctamente para la gestión de estado, con actualización reactiva y desacople entre View y ViewModel."
+          }
+        ]
+      },
+      {
+        "indicador": "CREATIVIDAD Y RIQUEZA VISUAL EN LA INTERFAZ",
+        "descripcion_puntaje": [
+          {
+            "porcentaje": "10%",
+            "descripcion": "La interfaz es pobre, básica o descuidada, sin uso de widgets enriquecidos ni animaciones."
+          },
+          {
+            "porcentaje": "15%",
+            "descripcion": "La interfaz cumple lo mínimo, con pocos elementos visuales enriquecidos y diseño moderadamente atractivo."
+          },
+          {
+            "porcentaje": "25%",
+            "descripcion": "La interfaz es atractiva, con uso de animaciones, gradientes, tipografías y widgets avanzados. Se observa un diseño profesional y bien cuidado."
+          }
+        ]
+      },
+      {
+        "indicador": "INFORME EN PDF DETALLADO Y BIEN ESTRUCTURADO",
+        "descripcion_puntaje": [
+          {
+            "porcentaje": "5%",
+            "descripcion": "Informe ausente o muy deficiente, sin detalle técnico ni claridad en la documentación."
+          },
+          {
+            "porcentaje": "10%",
+            "descripcion": "Informe entregado, pero incompleto (faltan secciones o explicaciones superficiales). Redacción adecuada pero con carencias."
+          },
+          {
+            "porcentaje": "15%",
+            "descripcion": "Informe completo con introducción, objetivos, arquitectura, justificación de Provider, explicación de widgets, capturas y conclusiones. Bien redactado y organizado."
+          }
+        ]
+      },
+      {
+        "indicador": "FUNCIONALIDAD GENERAL Y CUMPLIMIENTO DE RESTRICCIONES",
+        "descripcion_puntaje": [
+          {
+            "porcentaje": "0%",
+            "descripcion": "La app no funciona adecuadamente o incumple varias restricciones clave."
+          },
+          {
+            "porcentaje": "5%",
+            "descripcion": "La app funciona con algunos errores menores o incumple parcialmente alguna restricción."
+          },
+          {
+            "porcentaje": "10%",
+            "descripcion": "La app funciona correctamente, se ajusta a los requisitos: una sola pantalla, evita navegación innecesaria, y cumple las restricciones dadas."
+          }
+        ]
+      }
+    ],
+    "total": "TOTAL"
+  }
+}
