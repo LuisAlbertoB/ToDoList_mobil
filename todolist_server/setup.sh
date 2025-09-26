@@ -65,7 +65,8 @@ echo -e "\n${YELLOW}2. Configurando la base de datos y las credenciales...${NC}"
 
 # Crear usuario y base de datos en PostgreSQL
 if sudo -u postgres psql -tAc "SELECT 1 FROM pg_roles WHERE rolname='$DB_USER'" | grep -q 1; then
-    echo "El usuario de la base de datos '$DB_USER' ya existe."
+    echo "El usuario de la base de datos '$DB_USER' ya existe. Actualizando su contraseña..."
+    sudo -u postgres psql -c "ALTER USER $DB_USER WITH PASSWORD '$DB_PASS';"
 else
     sudo -u postgres psql -c "CREATE USER $DB_USER WITH PASSWORD '$DB_PASS';"
     echo "Usuario de la base de datos '$DB_USER' creado."
