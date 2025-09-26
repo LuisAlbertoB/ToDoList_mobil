@@ -10,7 +10,7 @@ class DioClient {
   DioClient._internal() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: 'http://98.89.202.212:8080/api/v1',
+        baseUrl: 'http://98.89.202.212:8080',
         connectTimeout: const Duration(milliseconds: 5000),
         receiveTimeout: const Duration(milliseconds: 3000),
         contentType: 'application/json',

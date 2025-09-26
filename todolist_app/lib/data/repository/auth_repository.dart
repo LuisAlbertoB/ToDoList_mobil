@@ -11,7 +11,7 @@ class AuthRepository {
   }) async {
     try {
       final response = await _dio.post(
-        '/users/signup',
+        '/users/signup', // Corregimos el endpoint
         data: {
           'username': username,
           'email': email,
