@@ -11,9 +11,27 @@ class AuthRepository {
   }) async {
     try {
       final response = await _dio.post(
-        '/users/signup', // Corregimos el endpoint
+        '/users/signup',
         data: {
           'username': username,
+          'email': email,
+          'password': password,
+        },
+      );
+      return response;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  Future<Response> signIn({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      final response = await _dio.post(
+        '/users/login',
+        data: {
           'email': email,
           'password': password,
         },

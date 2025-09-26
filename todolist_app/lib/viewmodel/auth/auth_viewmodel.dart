@@ -13,9 +13,18 @@ class AuthViewModel extends ChangeNotifier {
   String? _errorMessage;
   String? get errorMessage => _errorMessage;
 
+  String? _token;
+  String? get token => _token;
+
   void _setState(AuthState state) {
     _state = state;
     notifyListeners();
+  }
+
+  // Método para resetear el estado, útil al navegar entre pantallas
+  void resetState() {
+    _state = AuthState.idle;
+    _errorMessage = null;
   }
 
   Future<void> signUp({
@@ -45,6 +54,38 @@ class AuthViewModel extends ChangeNotifier {
     } catch (e) {
       _errorMessage = 'Failed to connect to the server.';
       _setState(AuthState.error);
+    }
+  }
+
+  Future<bool> signIn({
+    required String email,
+    required String password,
+  }) async {
+    _setState(AuthState.loading);
+    _errorMessage = null;
+    _token = null;
+
+    try {
+      final response = await _authRepository.signIn(
+        email: email,
+        password: password,
+      );
+      if (response.data is Map && response.data.containsKey('token')) {
+        _token = response.data['token'];
+        _setState(AuthState.success);
+        return true;
+      }
+      _errorMessage = 'Invalid response from server.';
+      _setState(AuthState.error);
+      return false;
+    } on DioException catch (e) {
+      _errorMessage = e.response?.data['error'] ?? 'An unknown error occurred';
+      _setState(AuthState.error);
+      return false;
+    } catch (e) {
+      _errorMessage = 'Failed to connect to the server.';
+      _setState(AuthState.error);
+      return false;
     }
   }
 }

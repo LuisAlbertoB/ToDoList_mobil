@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:todolist_app/view/auth/signin_screen.dart';
 import 'package:todolist_app/viewmodel/auth/auth_viewmodel.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({super.key});
+class SignInScreen extends StatelessWidget {
+  const SignInScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final usernameController = TextEditingController();
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
+        title: const Text('Sign In'),
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Center(
@@ -28,19 +26,11 @@ class SignUpScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 const Text(
-                  'Create an Account',
+                  'Welcome Back!',
                   style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 32),
-                TextFormField(
-                  controller: usernameController,
-                  decoration: const InputDecoration(
-                      labelText: 'Username', border: OutlineInputBorder()),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter a username' : null,
-                ),
-                const SizedBox(height: 16),
                 TextFormField(
                   controller: emailController,
                   decoration: const InputDecoration(
@@ -72,19 +62,17 @@ class SignUpScreen extends StatelessWidget {
                       ),
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
-                          viewModel.signUp(
-                            username: usernameController.text,
+                          viewModel.signIn(
                             email: emailController.text,
                             password: passwordController.text,
                           );
                         }
                       },
-                      child: const Text('Sign Up'),
+                      child: const Text('Sign In'),
                     );
                   },
                 ),
                 const SizedBox(height: 16),
-                // Listener para mostrar mensajes (éxito o error)
                 Consumer<AuthViewModel>(
                   builder: (context, viewModel, child) {
                     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -95,32 +83,17 @@ class SignUpScreen extends StatelessWidget {
                               content: Text(viewModel.errorMessage!),
                               backgroundColor: Colors.red),
                         );
-                        viewModel.resetState(); // Limpiamos el error
-                      } else if (viewModel.state == AuthState.success) {
+                      } else if (viewModel.state == AuthState.success && viewModel.token != null) {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
-                              content: Text('Account created! Please sign in.'),
+                              content: Text('Login successful!'),
                               backgroundColor: Colors.green),
-                        );
-                        viewModel.resetState(); // Limpiamos el estado
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (_) => const SignInScreen()),
                         );
                       }
                     });
-                    return const SizedBox.shrink(); // No dibuja nada
+                    return const SizedBox.shrink();
                   },
                 ),
-                const SizedBox(height: 24),
-                TextButton(
-                  onPressed: () {
-                    Provider.of<AuthViewModel>(context, listen: false).resetState();
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const SignInScreen()));
-                  },
-                  child: const Text('Already have an account? Sign In'),
-                )
               ],
             ),
           ),
