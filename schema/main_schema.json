@@ -1,0 +1,120 @@
+{
+  "context": {
+    "applicationName": "ToDoList",
+    "description": "Un esquema de arquitectura para una aplicación de lista de tareas (to-do list) simple, que muestra los componentes de la interfaz de usuario móvil, los servicios de backend y el modelo de datos de la base de datos.",
+    "architectureType": "Cliente-Servidor"
+  },
+  "components": [
+    {
+      "name": "Frontend (Mobile App)",
+      "type": "Client",
+      "description": "La interfaz de usuario móvil que permite a los usuarios interactuar con la aplicación.",
+      "ui_elements": [
+        {
+          "element": "Pantalla de Tareas",
+          "description": "Vista principal de la aplicación.",
+          "features": [
+            {
+              "name": "Formulario de Nueva Tarea",
+              "fields": ["input_title", "input_content"],
+              "purpose": "Permite a los usuarios añadir nuevas tareas."
+            },
+            {
+              "name": "Lista de Tareas",
+              "item_components": ["Label (título)", "content", "Checkbox (estado)", "Botón de opciones"],
+              "purpose": "Muestra las tareas existentes del usuario."
+            }
+          ]
+        }
+      ],
+      "interactions": [
+        "Crear una nueva tarea.",
+        "Ver la lista de tareas.",
+        "Marcar una tarea como completada.",
+        "Actualizar el contenido de una tarea.",
+        "Eliminar una tarea."
+      ]
+    },
+    {
+      "name": "Backend",
+      "type": "Server",
+      "description": "La lógica del servidor que gestiona la autenticación de usuarios y las operaciones de las tareas.",
+      "services": [
+        {
+          "name": "Autenticación de Usuario",
+          "provider_suggestion": "Cloud Data Fusion",
+          "interfaces": [
+            {
+              "name": "Sign Up",
+              "methods": ["create_user()"],
+              "description": "Maneja el registro de nuevos usuarios."
+            },
+            {
+              "name": "Sign In",
+              "methods": ["signin()", "logout()"],
+              "description": "Gestiona el inicio y cierre de sesión de los usuarios."
+            }
+          ]
+        },
+        {
+          "name": "Dashboard (Gestión de Tareas)",
+          "provider_suggestion": "Cloud Data Fusion",
+          "interfaces": [
+            {
+              "name": "Dash Board",
+              "methods": ["create_task()", "update_task()", "delete_task()"],
+              "description": "Proporciona las operaciones CRUD (Crear, Leer, Actualizar, Eliminar) para las tareas."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Base de Datos",
+      "type": "Database",
+      "description": "El sistema de almacenamiento persistente para los datos de los usuarios y las tareas.",
+      "dataModels": [
+        {
+          "modelName": "user",
+          "description": "Representa a un usuario registrado en la aplicación.",
+          "fields": [
+            { "name": "id", "type": "Integer", "isPrimaryKey": true },
+            { "name": "email", "type": "String", "isUnique": true },
+            { "name": "password", "type": "String (hashed)" },
+            { "name": "created_at", "type": "DateTime" },
+            { "name": "updated_at", "type": "DateTime" }
+          ]
+        },
+        {
+          "modelName": "task",
+          "description": "Representa una tarea individual creada por un usuario.",
+          "fields": [
+            { "name": "id", "type": "Integer", "isPrimaryKey": true },
+            { "name": "user_id", "type": "Integer", "isForeignKey": true, "references": "user" },
+            { "name": "title", "type": "String" },
+            { "name": "content", "type": "String" },
+            { "name": "is_completed", "type": "Boolean" },
+            { "name": "created_at", "type": "DateTime" },
+            { "name": "updated_at", "type": "DateTime" }
+          ]
+        }
+      ]
+    }
+  ],
+  "relationships": [
+    {
+      "from": "user",
+      "to": "task",
+      "type": "One-to-Many",
+      "description": "Un usuario puede tener muchas tareas, pero cada tarea pertenece a un único usuario."
+    }
+  ],
+  "flow": [
+    "Un usuario se registra (Sign Up) o inicia sesión (Sign In) a través de la aplicación móvil.",
+    "La aplicación se comunica con el servicio de 'Autenticación de Usuario' en el backend.",
+    "Una vez autenticado, el usuario puede crear, actualizar o eliminar tareas a través de la interfaz del 'Dash Board'.",
+    "Estas acciones llaman a los métodos correspondientes en el backend (create_task, update_task, delete_task).",
+    "El backend procesa estas solicitudes y realiza las operaciones necesarias en la base de datos, modificando las tablas 'user' y 'task'.",
+    "Los datos actualizados se devuelven a la aplicación móvil para ser mostrados al usuario."
+  ]
+}
