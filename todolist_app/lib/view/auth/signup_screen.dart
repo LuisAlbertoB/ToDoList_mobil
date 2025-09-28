@@ -1,18 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:secure_application/secure_application.dart';
 import 'package:todolist_app/view/auth/signin_screen.dart';
 import 'package:todolist_app/viewmodel/auth/auth_viewmodel.dart';
 
-class SignUpScreen extends StatelessWidget {
+class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final usernameController = TextEditingController();
-    final emailController = TextEditingController();
-    final passwordController = TextEditingController();
-    final formKey = GlobalKey<FormState>();
+  State<SignUpScreen> createState() => _SignUpScreenState();
+}
 
+class _SignUpScreenState extends State<SignUpScreen> {
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    SecureApplicationProvider.of(context, listen: false)!.secure();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Sign Up'),
@@ -102,6 +114,8 @@ class SignUpScreen extends StatelessWidget {
                               content: Text('Account created! Please sign in.'),
                               backgroundColor: Colors.green),
                         );
+                        // Desbloqueamos ANTES de navegar a la pantalla no segura.
+                        SecureApplicationProvider.of(context, listen: false)!.open();
                         viewModel.resetState(); // Limpiamos el estado
                         Navigator.pushReplacement(
                           context,
@@ -116,6 +130,8 @@ class SignUpScreen extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     Provider.of<AuthViewModel>(context, listen: false).resetState();
+                    // Desbloqueamos ANTES de navegar a la pantalla no segura.
+                    SecureApplicationProvider.of(context, listen: false)!.open();
                     Navigator.push(context,
                         MaterialPageRoute(builder: (_) => const SignInScreen()));
                   },
@@ -127,5 +143,14 @@ class SignUpScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    SecureApplicationProvider.of(context, listen: false)!.open();
+    super.dispose();
   }
 }

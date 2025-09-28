@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:todolist_app/view/dashboard/dashboard_screen.dart';
 import 'package:todolist_app/viewmodel/auth/auth_viewmodel.dart';
 
 class SignInScreen extends StatelessWidget {
@@ -60,12 +61,20 @@ class SignInScreen extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         textStyle: const TextStyle(fontSize: 16),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          viewModel.signIn(
+                          final success = await viewModel.signIn(
                             email: emailController.text,
                             password: passwordController.text,
                           );
+
+                          if (success && context.mounted) {
+                            Navigator.pushAndRemoveUntil(
+                              context,
+                              MaterialPageRoute(builder: (_) => const DashboardScreen()),
+                              (route) => false, // Elimina todas las rutas anteriores
+                            );
+                          }
                         }
                       },
                       child: const Text('Sign In'),
@@ -82,12 +91,6 @@ class SignInScreen extends StatelessWidget {
                           SnackBar(
                               content: Text(viewModel.errorMessage!),
                               backgroundColor: Colors.red),
-                        );
-                      } else if (viewModel.state == AuthState.success && viewModel.token != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                              content: Text('Login successful!'),
-                              backgroundColor: Colors.green),
                         );
                       }
                     });

@@ -25,6 +25,7 @@ class AuthViewModel extends ChangeNotifier {
   void resetState() {
     _state = AuthState.idle;
     _errorMessage = null;
+    _token = null; // También limpiamos el token al resetear
   }
 
   Future<void> signUp({

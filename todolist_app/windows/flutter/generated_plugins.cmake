@@ -3,6 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
+  secure_application
 )
 
 list(APPEND FLUTTER_FFI_PLUGIN_LIST

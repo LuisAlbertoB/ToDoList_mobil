@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:secure_application/secure_application.dart';
 import 'package:todolist_app/view/auth/signup_screen.dart';
 import 'package:todolist_app/viewmodel/auth/auth_viewmodel.dart';
+import 'package:todolist_app/viewmodel/task/task_viewmodel.dart';
 
 void main() {
   runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => AuthViewModel()),
-      ],
-      child: const MyApp(),
+    SecureApplication(
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => AuthViewModel()),
+          ChangeNotifierProvider(create: (_) => TaskViewModel()),
+        ],
+        child: const MyApp(),
+      ),
     ),
   );
 }

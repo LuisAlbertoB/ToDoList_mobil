@@ -40,6 +40,9 @@ dependencies:
   # Networking
   dio: ^5.5.0+1
 
+  # Secure window for preventing screenshots
+  secure_application: ^4.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
