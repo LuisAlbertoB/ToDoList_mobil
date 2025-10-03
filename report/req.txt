@@ -1,0 +1,21 @@
+###-Rubrica
+
+Informe completo con
+introducción, objetivos,
+arquitectura, justificación de
+Provider, explicación de
+widgets, capturas y
+conclusiones. Bien
+redactado y organizado.
+_____________________________________
+
+Act. Reporte.
+
+El alumno deberá entregar un informe detallado en formato PDF, que incluya:
+1. Introducción: Objetivo de la aplicación y API utilizada.
+2. Arquitectura: Explicación de cómo se aplicó MVVM, Clean Architecture, Screaming Architecture y
+Vertical Slicing.
+3. Gestión de Estado: Justificación del uso de Provider.
+4. Cliente HTTP: Ejemplos de implementación de GET, POST y DELETE.
+5. Interfaz Gráfica: Capturas de pantalla y explicación de widgets clave.
+6. Conclusiones: Retos, aprendizajes y mejoras futuras.
